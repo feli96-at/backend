@@ -3,7 +3,9 @@ from typing import List, Optional
 from bson import ObjectId
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
-from ..database import PyObjectId
+from ..database import PyObjectId, db
+
+student_collection = db.get_collection("students")
 
 
 class StudentModel(BaseModel):
@@ -30,7 +32,7 @@ class StudentModel(BaseModel):
     )
 
 
-class StudentCollection(BaseModel):
+class StudentListModel(BaseModel):
     """
     A container holding a list of `StudentModel` instances.
 

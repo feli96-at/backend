@@ -1,9 +1,13 @@
 from fastapi import FastAPI
-from motor.motor_asyncio import AsyncIOMotorClient
 
 from .config import settings
+from .database import client
+from .routers import router_students
 
-app = FastAPI()
+app = FastAPI(
+    title="Student Course API",
+    summary="A sample application showing how to use FastAPI to add a ReST API to a MongoDB collection.",
+)
 
 
 @app.get("/")
@@ -13,7 +17,6 @@ def root():
 
 @app.get("/health-check/mongodb")
 async def health_check_mongodb():
-    client = AsyncIOMotorClient(settings.uri)
     try:
         await client.admin.command("ping")
         return {
@@ -30,3 +33,5 @@ async def info():
         "admin_email": settings.admin_email,
         "items_per_user": settings.items_per_user,
     }
+
+app.include_router(router_students.router)

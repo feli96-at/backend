@@ -7,7 +7,7 @@ from pymongo import ReturnDocument
 from ..models import model_students
 from ..utilities import utility_string
 
-router = APIRouter(tags=["users"])
+router = APIRouter(tags=["students"])
 
 
 @router.post(

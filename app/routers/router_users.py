@@ -1,7 +1,10 @@
+import string
+
 from bson import ObjectId
 from fastapi import APIRouter, Body, HTTPException
 
 from ..models import model_users
+from ..utilities import utility_string
 
 router = APIRouter(tags=["users"], prefix="/users")
 
@@ -29,4 +32,7 @@ async def register_user(register_user_model: model_users.RegisterUserModel = Bod
     #     {"_id": ObjectId(new_user.inserted_id)}
     # )
     # return registered_user
-    return model_users.UserResponseModel()
+    return model_users.UserResponseModel(
+        **register_user_model.model_dump(),
+        _id=utility_string.get_random_string(24, string.hexdigits).lower()
+    )

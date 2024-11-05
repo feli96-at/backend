@@ -19,9 +19,27 @@ class RegisterUserModel(BaseModel):
     name: str = Field(...)
     username: str = Field(...)
     password: str = Field(...)
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "name": "Jane Doe",
+                "username": "janedoe1122",
+                "password": "123456",
+            }
+        },
+    )
 
 
 class UserResponseModel(BaseModel):
-    id: PyObjectId = Field(alias="_id", default="string")
-    name: str = "string"
-    username: str = "string"
+    id: PyObjectId = Field(alias="_id")
+    name: str
+    username: str
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "id": "5e1ac6b5c515c2a60f7e0ce8",
+                "name": "Jane Doe",
+                "username": "janedoe1122",
+            }
+        },
+    )
